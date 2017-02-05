@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-.idea
-=======
 build
 node_modules
 .idea
 npm-debug.log
->>>>>>> refs/remotes/romabelka/master
