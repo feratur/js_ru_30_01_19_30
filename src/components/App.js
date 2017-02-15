@@ -44,6 +44,7 @@ class App extends Component {
         }
     }
 
+    //ок, но еще лучше делать фильтрацию в коннекте
     getFilteredArticles = () => {
         const {articles} = this.props
         const {selectedArticles} = this.props
