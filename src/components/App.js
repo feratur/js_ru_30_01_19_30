@@ -6,11 +6,12 @@ import DateRange from './DateRange'
 import 'react-select/dist/react-select.css'
 import Counter from './Counter'
 import {connect} from 'react-redux'
+import {filterSelected} from '../AC'
+import { DateUtils } from 'react-day-picker'
 
 class App extends Component {
     state = {
-        user: '',
-        selection: null
+        user: ''
     }
 
     render() {
@@ -23,15 +24,17 @@ class App extends Component {
             <div>
                 <Counter/>
                 User: <input type="text" value={this.state.user} onChange={this.handleUserChange}/>
-                <Select options = {options} onChange={this.handleSelectChange} value={this.state.selection} multi/>
+                <Select options = {options} onChange={this.handleSelectChange} value={this.props.selectedArticles} multi/>
                 <DateRange />
-                <ArticleList articles={articles}/>
+                <ArticleList articles={this.getFilteredArticles()}/>
                 <Chart articles={articles}/>
             </div>
         )
     }
 
-    handleSelectChange = selection => this.setState({ selection })
+    handleSelectChange = selection => {
+        this.props.filterSelected(selection)
+    }
 
     handleUserChange = (ev) => {
         if (ev.target.value.length < 10) {
@@ -40,6 +43,20 @@ class App extends Component {
             })
         }
     }
+
+    getFilteredArticles = () => {
+        const {articles} = this.props
+        const {selectedArticles} = this.props
+        const {dateRange} = this.props
+
+        const articlesAfterSelectFilter = (selectedArticles && selectedArticles.length > 0)
+            ? articles.filter(article => selectedArticles.some(selected => selected.value === article.id))
+            : articles;
+
+        return dateRange
+            ? articlesAfterSelectFilter.filter(article => DateUtils.isDayInRange(new Date(article.date), dateRange))
+            : articlesAfterSelectFilter
+    }
 }
 
 App.propTypes = {
@@ -47,5 +64,7 @@ App.propTypes = {
 }
 
 export default connect(state => ({
-    articles: state.articles
-}))(App)
+    articles: state.articles,
+    selectedArticles: state.selectedArticles,
+    dateRange: state.dateRange
+}), {filterSelected})(App)
