@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE, LOAD_ALL_ARTICLES, FAIL, SUCCESS, START} from '../constants'
+import {DELETE_ARTICLE, LOAD_ALL_ARTICLES, FAIL, SUCCESS, START, ADD_COMMENT_TO_ARTICLE} from '../constants'
 import {arrayToMap} from '../utils'
 
 const defaultState = {
@@ -24,6 +24,15 @@ export default (state = defaultState, action) => {
                 entities: arrayToMap(action.response),
                 isLoading: false
             }
+
+        case ADD_COMMENT_TO_ARTICLE:
+            const {articleId, commentId} = payload
+            const {entities} = state
+            const targetEntity = entities[articleId]
+            const newEntity = {...targetEntity, comments: targetEntity.comments.concat([commentId])}
+            const newEntities = {...entities, [articleId]: newEntity}
+
+            return {...state, entities: newEntities}
     }
 
     return state

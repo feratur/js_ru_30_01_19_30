@@ -53,13 +53,13 @@ class Article extends Component {
     }
 
     getBody() {
-        const {isOpen, article: {text, comments}} = this.props
+        const {isOpen, article: {text, comments}, article} = this.props
         if (!isOpen) return null
 
         return (
             <section>
                 {text}
-                <CommentList comments={comments} ref = {this.getCommentsRef} />
+                <CommentList article={article} comments={comments} ref = {this.getCommentsRef} />
             </section>
         )
     }

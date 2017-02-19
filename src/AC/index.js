@@ -1,4 +1,4 @@
-import {INCREMENT, DELETE_ARTICLE, CHANGE_DATE_RANGE, CHANGE_SELECTION, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL} from '../constants'
+import {INCREMENT, DELETE_ARTICLE, CHANGE_DATE_RANGE, CHANGE_SELECTION, LOAD_ALL_ARTICLES, START, SUCCESS, FAIL, ADD_COMMENT, ADD_COMMENT_TO_ARTICLE} from '../constants'
 import $ from 'jquery'
 
 
@@ -35,6 +35,23 @@ export function loadAllArticles() {
     return {
         type: LOAD_ALL_ARTICLES,
         callAPI: '/api/article'
+    }
+}
+
+export function addComment(article, comment) {
+    return (dispatch) => {
+        dispatch({
+            type: ADD_COMMENT,
+            payload: comment
+        })
+
+        dispatch({
+            type: ADD_COMMENT_TO_ARTICLE,
+            payload: {
+                articleId: article.id,
+                commentId: comment.id
+            }
+        })
     }
 }
 
