@@ -4,6 +4,7 @@ import {mapToArr} from '../utils'
 const articlesGetter = state => state.articles.entities
 const filtersGetter = state => state.filters
 const idGetter = (state, props) => props.id
+const commentGetter = state => state.comments
 
 export const filteredArticlesSelector = createSelector(articlesGetter, filtersGetter, (entities, filters) => {
     console.log('---', 1)
@@ -21,4 +22,8 @@ export const filteredArticlesSelector = createSelector(articlesGetter, filtersGe
 export const articleSelectorFactory = () => createSelector(articlesGetter, idGetter, (entities, id) => {
     console.log('---', 'article selector', id)
     return entities.get(id)
+})
+
+export const commentSelectorFactory = () => createSelector(commentGetter, idGetter, (comments, id) => {
+    return comments.get(id)
 })
