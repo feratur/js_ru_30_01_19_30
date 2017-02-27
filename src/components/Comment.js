@@ -20,10 +20,4 @@ Comment.propTypes = {
     }).isRequired
 }
 
-export default connect(() => {
-    const commentSelector = commentSelectorFactory()
-    return (state, props) => {
-        return {
-            comment: commentSelector(state, props)
-        }
-}})(Comment)
+export default Comment
