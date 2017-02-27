@@ -5,6 +5,7 @@ const articlesGetter = state => state.articles.entities
 const filtersGetter = state => state.filters
 const idGetter = (state, props) => props.id
 const commentGetter = state => state.comments
+const articleIdGetter = (state, props) => props.article.id
 
 export const filteredArticlesSelector = createSelector(articlesGetter, filtersGetter, (entities, filters) => {
     console.log('---', 1)
@@ -24,6 +25,6 @@ export const articleSelectorFactory = () => createSelector(articlesGetter, idGet
     return entities.get(id)
 })
 
-export const commentSelectorFactory = () => createSelector(commentGetter, idGetter, (comments, id) => {
+export const commentSelectorFactory = () => createSelector(commentGetter, articleIdGetter, (comments, id) => {
     return comments.get(id)
 })

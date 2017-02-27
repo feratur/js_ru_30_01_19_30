@@ -4,6 +4,7 @@ import NewCommentForm from './NewCommentForm'
 import {connect} from 'react-redux'
 import {loadComments} from '../AC'
 import Loader from './Loader'
+import {commentSelectorFactory} from '../selectors'
 
 class CommentList extends Component {
     static propTypes = {
@@ -60,12 +61,14 @@ class CommentList extends Component {
     }
 }
 
-export default connect((state, props) => {
-    const {id} = props.article
-    const articleComments = state.comments.get(id)
+export default connect(() => {
+    const commentSelector = commentSelectorFactory()
+    return (state, props) => {
+        const comments = commentSelector(state, props)
 
-    return {
-        isLoading: articleComments ? articleComments.isLoading : false,
-        comments: articleComments ? articleComments.comments : null
+        return {
+            isLoading: comments ? comments.isLoading : false,
+            comments: comments ? comments.comments : null
+        }
     }
 }, {loadComments})(CommentList)
