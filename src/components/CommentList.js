@@ -36,7 +36,7 @@ class CommentList extends Component {
         const {article} = this.props
         const {id} = article
 
-        if (!Object.keys(comments).length) return (<div>
+        if (!comments.size) return (<div>
             <h3>No comments yet</h3>
             <NewCommentForm articleId={id}/>
         </div>)
@@ -62,7 +62,8 @@ class CommentList extends Component {
 
 export default connect((state, props) => {
     const {id} = props.article
-    const articleComments = state.comments[id]
+    const articleComments = state.comments.get(id)
+
     return {
         isLoading: articleComments ? articleComments.isLoading : false,
         comments: articleComments ? articleComments.comments : null
