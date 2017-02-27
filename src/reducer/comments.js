@@ -16,8 +16,7 @@ export default (state = defaultState, action) => {
             return {...state, [payload.id]: {isLoading: false, comments: arrayToMap(response)}}
         case ADD_COMMENT:
             const currentComments = state[payload.articleId]
-            return {...state, [payload.articleId]: {isLoaded}}
-            return state.set(randomId, {...payload.comment, id: randomId})
+            return {...state, [payload.articleId]: {...currentComments, comments: currentComments.comments.set(randomId, {...payload.comment, id: randomId})}}
     }
 
     return state
