@@ -2,6 +2,8 @@ import {ADD_COMMENT, LOAD_COMMENTS, START, SUCCESS} from '../constants'
 import {arrayToMap} from '../utils'
 import {Map, Record} from 'immutable'
 
+//давай комменты хранить в такой же структуре, как и статьи. Иначе быстро запутаешься
+//я советую тут хранить просто список всех комментов, а не разбивать их по статьям
 const defaultState = new Map({})
 const CommentModel = Record({
     isLoading: false,
