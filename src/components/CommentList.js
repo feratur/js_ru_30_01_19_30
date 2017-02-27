@@ -27,21 +27,22 @@ class CommentList extends Component {
     getBody() {
         if (!this.state.isOpen) return null
 
+        const {isLoading} = this.props
         const {comments} = this.props
 
-        if (!comments.isLoaded)
+        if (isLoading)
             return <Loader/>
 
         const {article} = this.props
         const {id} = article
 
-        if (!comments.entities.length) return (<div>
+        if (!Object.keys(comments).length) return (<div>
             <h3>No comments yet</h3>
             <NewCommentForm articleId={id}/>
         </div>)
 
-        const commentItems = article.comments.map(id =>
-            <li key={id}><Comment comment={comments.entities.find(x => x.id === id)} /></li>)
+        const commentItems = article.comments.map(commentId =>
+            <li key={commentId}><Comment comment={comments.get(commentId)} /></li>)
 
         return <div>
             <ul>{commentItems}</ul>
@@ -51,7 +52,7 @@ class CommentList extends Component {
 
     toggleOpen = ev => {
         ev.preventDefault()
-        if (!this.props.comments)
+        if (!this.props.isLoading && !this.props.comments)
             this.props.loadComments(this.props.article.id)
         this.setState({
             isOpen: !this.state.isOpen
@@ -61,7 +62,9 @@ class CommentList extends Component {
 
 export default connect((state, props) => {
     const {id} = props.article
+    const articleComments = state.comments[id]
     return {
-        comments: state.comments[id]
+        isLoading: articleComments ? articleComments.isLoading : false,
+        comments: articleComments ? articleComments.comments : null
     }
 }, {loadComments})(CommentList)

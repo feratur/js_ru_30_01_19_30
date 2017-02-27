@@ -11,10 +11,12 @@ export default (state = defaultState, action) => {
 
     switch (type) {
         case LOAD_COMMENTS + START:
-            return {...state, [payload.id]: {isLoaded: false}}
+            return {...state, [payload.id]: {isLoading: true, comments: null}}
         case LOAD_COMMENTS + SUCCESS:
-            return {...state, [payload.id]: {isLoaded: true, entities: response}}
+            return {...state, [payload.id]: {isLoading: false, comments: arrayToMap(response)}}
         case ADD_COMMENT:
+            const currentComments = state[payload.articleId]
+            return {...state, [payload.articleId]: {isLoaded}}
             return state.set(randomId, {...payload.comment, id: randomId})
     }
 
