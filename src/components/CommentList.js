@@ -53,6 +53,7 @@ class CommentList extends Component {
 
     toggleOpen = ev => {
         ev.preventDefault()
+        //ок, но как я говорил на уроке, лучше делать в декларативном стиле - в componentWillReceiveProps, чем в императивном - как реакцию на клик
         if (!this.props.isLoading && !this.props.comments)
             this.props.loadComments(this.props.article.id)
         this.setState({
