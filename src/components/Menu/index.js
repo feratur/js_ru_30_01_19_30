@@ -7,10 +7,14 @@ class Menu extends Component {
 
     };
 
+    static contextTypes = {
+        locale: PropTypes.Object
+    }
+
     render() {
         return (
             <div>
-                <h2>Main menu:</h2>
+                <h2>{this.context.locale.mainMenuTitle}:</h2>
                 {this.props.children}
             </div>
         )

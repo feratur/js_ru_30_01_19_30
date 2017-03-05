@@ -5,10 +5,14 @@ class ArticleIndexPage extends Component {
 
     };
 
+    static contextTypes = {
+        locale: PropTypes.Object
+    }
+
     render() {
         return (
             <div>
-                <h1>Select Article</h1>
+                <h1>{this.context.locale.selectArticle}</h1>
             </div>
         )
     }
