@@ -7,11 +7,15 @@ class Counter extends Component {
 
     };
 
+    static contextTypes = {
+        locale: PropTypes.Object
+    }
+
     render() {
         return (
             <div>
                 <h1>{this.props.count}</h1>
-                <a href="#" onClick={this.handleIncrement}>Increment</a>
+                <a href="#" onClick={this.handleIncrement}>{this.context.locale.increment}</a>
             </div>
         )
     }

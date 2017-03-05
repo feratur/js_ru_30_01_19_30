@@ -17,11 +17,19 @@ class Root extends Component {
     locale = {
         en: {
             mainMenuTitle: 'Main menu',
-            selectArticle: 'Select Article'
+            selectArticle: 'Select Article',
+            increment: 'Increment',
+            deleteArticle: 'Delete me',
+            showComments: 'show comments',
+            hideComments: 'hide comments'
         },
         ru: {
             mainMenuTitle: 'Главное меню',
-            selectArticle: 'Выберите статью'
+            selectArticle: 'Выберите статью',
+            increment: 'Увеличить счетчик',
+            deleteArticle: 'Удалить',
+            showComments: 'показать комментарии',
+            hideComments: 'скрыть комментарии'
         }
     }
 

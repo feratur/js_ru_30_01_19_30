@@ -18,6 +18,10 @@ class Article extends Component {
         isOpen: PropTypes.bool,
         toggleOpen: PropTypes.func
     }
+
+    static contextTypes = {
+        locale: PropTypes.Object
+    }
 /*
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -37,7 +41,7 @@ class Article extends Component {
             <div ref = {this.getContainerRef}>
                 <h3 onClick={toggleOpen}>
                     {article.title}
-                    <a href="#" onClick = {this.handleDelete}>Delete me</a>
+                    <a href="#" onClick = {this.handleDelete}>{this.context.locale.deleteArticle}</a>
                 </h3>
                 <CSSTransition
                     transitionName="article-body"

@@ -13,7 +13,8 @@ class CommentList extends Component {
     static contextTypes = {
         router: PropTypes.object,
         store: PropTypes.object,
-        user: PropTypes.string
+        user: PropTypes.string,
+        locale: PropTypes.Object
     }
 
     state = {
@@ -27,10 +28,12 @@ class CommentList extends Component {
     }
 
     render() {
-        const actionText = this.state.isOpen ? 'hide' : 'show'
+        const {locale} = this.context
+        const actionText = this.state.isOpen ? locale.hideComments : locale.showComments
+
         return (
             <div>
-                <a href="#" onClick={this.toggleOpen}>{actionText} comments</a>
+                <a href="#" onClick={this.toggleOpen}>{actionText}</a>
                 {this.getBody()}
             </div>
         )
