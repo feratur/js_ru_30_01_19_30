@@ -6,10 +6,14 @@ class CommentRoot extends Component {
 
     };
 
+    static contextTypes = {
+        locale: PropTypes.Object
+    }
+
     render() {
         return (
             <div>
-                <h1>Comments pagination</h1>
+                <h1>{this.context.locale.commentsPagination}</h1>
                 {this.props.children}
                 <CommentsPaginator />
             </div>

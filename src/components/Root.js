@@ -10,7 +10,6 @@ class Root extends Component {
 
     state = {
         user: '',
-        key: 0,
         lang: 'en'
     }
 
@@ -26,7 +25,8 @@ class Root extends Component {
             noComments: 'No comments yet',
             user: 'user',
             comment: 'comment',
-            loading: 'Loading...'
+            loading: 'Loading...',
+            commentsPagination: 'Comments pagination'
         },
         ru: {
             mainMenuTitle: 'Главное меню',
@@ -39,7 +39,8 @@ class Root extends Component {
             noComments: 'Нет комментариев',
             user: 'имя',
             comment: 'комментарий',
-            loading: 'Загрузка...'
+            loading: 'Загрузка...',
+            commentsPagination: 'Комментарии постранично'
         }
     }
 
@@ -58,7 +59,7 @@ class Root extends Component {
     render() {
         return (
             <Provider store={store}>
-                <div key={this.state.key}>
+                <div key={this.state.lang}>
                     <input value={this.state.user} onChange={this.handleUserChange} />
                     <a href="#" onClick={this.changeLang('ru')}>Ru</a> - <a href="#" onClick={this.changeLang('en')}>En</a>
                     <Menu key={this.state.key}>
@@ -80,14 +81,8 @@ class Root extends Component {
     }
 
     changeLang = newLang => ev => {
-        const {lang} = this.state
-
-        if (lang === newLang)
-            return
-
         this.setState({
-            lang: newLang,
-            key: this.state.key + 1
+            lang: newLang
         })
     }
 }
