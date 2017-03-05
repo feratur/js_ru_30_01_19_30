@@ -1,32 +1,29 @@
 import React, { PropTypes, Component } from 'react'
 import ArticleList from './ArticleList'
-import Chart from './Chart'
-import Select from 'react-select'
+import Filters from './Filters'
 import 'react-select/dist/react-select.css'
+import Counter from './Counter'
+import {connect} from 'react-redux'
+import {loadAllArticles, loadAllArticlesThunk} from '../AC'
 
 class App extends Component {
     state = {
-        user: '',
-        selection: null
+        user: ''
+    }
+
+    componentDidMount() {
+        this.props.loadAllArticlesThunk()
     }
 
     render() {
-        const {articles} = this.props
-        const options = articles.map(article => ({
-            label: article.title,
-            value: article.id
-        }))
         return (
             <div>
-                User: <input type="text" value={this.state.user} onChange={this.handleUserChange}/>
-                <Select options = {options} onChange={this.handleSelectChange} value={this.state.selection} multi/>
-                <ArticleList articles={articles}/>
-                <Chart articles={articles}/>
+                <Counter/>
+                <Filters />
+                <ArticleList />
             </div>
         )
     }
-
-    handleSelectChange = selection => this.setState({ selection })
 
     handleUserChange = (ev) => {
         if (ev.target.value.length < 10) {
@@ -38,7 +35,6 @@ class App extends Component {
 }
 
 App.propTypes = {
-    articles: PropTypes.array.isRequired
 }
 
-export default App
+export default connect(null, {loadAllArticles, loadAllArticlesThunk})(App)

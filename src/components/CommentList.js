@@ -1,28 +1,29 @@
 import React, { Component, PropTypes } from 'react'
 import Comment from './Comment'
+import NewCommentForm from './NewCommentForm'
+import Loader from './Loader'
+import {loadArticleComments} from '../AC'
+import {connect} from 'react-redux'
 
 class CommentList extends Component {
     static propTypes = {
-        comments: PropTypes.array
-    }
-    static defaultProps = {
-        comments: []
-    }
-    componentDidMount() {
-        console.log('---', 'mounted')
+        article: PropTypes.object.isRequired
     }
 
-    componentWillReceiveProps(nextProps) {
-       // console.log('---', this.props, nextProps)
-    }
-
-
-    componentWillUnmount() {
-        //console.log('---', 'unmounting')
+    static contextTypes = {
+        router: PropTypes.object,
+        store: PropTypes.object,
+        user: PropTypes.string
     }
 
     state = {
         isOpen: false
+    }
+
+    componentWillUpdate({article, loadArticleComments}, {isOpen}) {
+        if (isOpen && !this.state.isOpen && !article.commentsLoaded && !article.commentsLoading) {
+            loadArticleComments(article.id)
+        }
     }
 
     render() {
@@ -38,11 +39,23 @@ class CommentList extends Component {
     getBody() {
         if (!this.state.isOpen) return null
 
-        const {comments} = this.props
-        if (!comments.length) return <h3>No comments yet</h3>
+        const {commentsLoaded, comments = [], id} = this.props.article
 
-        const commentItems = comments.map(comment => <li key={comment.id}><Comment comment={comment} /></li>)
-        return <ul>{commentItems}</ul>
+        if (!commentsLoaded) {
+            return <Loader />
+        }
+
+        if (!comments.length) return (<div>
+            <h3>No comments yet</h3>
+            <NewCommentForm articleId={id}/>
+        </div>)
+
+        const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
+        return <div>
+            Username: {this.context.user}
+            <ul>{commentItems}</ul>
+            <NewCommentForm articleId={id} />
+        </div>
     }
 
     toggleOpen = ev => {
@@ -53,4 +66,4 @@ class CommentList extends Component {
     }
 }
 
-export default CommentList
+export default connect(null, {loadArticleComments}, null, {pure: false})(CommentList)
