@@ -49,13 +49,13 @@ class CommentList extends Component {
         }
 
         if (!comments.length) return (<div>
-            <h3>No comments yet</h3>
+            <h3>{this.context.locale.noComments}</h3>
             <NewCommentForm articleId={id}/>
         </div>)
 
         const commentItems = comments.map(id => <li key={id}><Comment id={id} /></li>)
         return <div>
-            Username: {this.context.user}
+            {this.context.locale.username}: {this.context.user}
             <ul>{commentItems}</ul>
             <NewCommentForm articleId={id} />
         </div>

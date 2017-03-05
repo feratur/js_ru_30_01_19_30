@@ -12,6 +12,10 @@ class CommentsPage extends Component {
         total: PropTypes.number
     };
 
+    static contextTypes = {
+        locale: PropTypes.Object
+    }
+
     componentDidMount() { checkAndLoad(this.props) }
 
     componentWillReceiveProps = checkAndLoad
@@ -19,7 +23,7 @@ class CommentsPage extends Component {
     render() {
         const { total, pageIds, page } = this.props
         if (!total) return <Loader />
-        if ( (page - 1) * 5 >= total ) return <h3>No comments for this page</h3>
+        if ( (page - 1) * 5 >= total ) return <h3>{this.context.locale.noComments}</h3>
         if (!pageIds || !pageIds.size) return <Loader />
 
         const commentItems = pageIds.map(id => <li key = {id}><Comment id = {id} /></li>)

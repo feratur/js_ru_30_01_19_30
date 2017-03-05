@@ -21,7 +21,12 @@ class Root extends Component {
             increment: 'Increment',
             deleteArticle: 'Delete me',
             showComments: 'show comments',
-            hideComments: 'hide comments'
+            hideComments: 'hide comments',
+            username: 'Username',
+            noComments: 'No comments yet',
+            user: 'user',
+            comment: 'comment',
+            loading: 'Loading...'
         },
         ru: {
             mainMenuTitle: 'Главное меню',
@@ -29,7 +34,12 @@ class Root extends Component {
             increment: 'Увеличить счетчик',
             deleteArticle: 'Удалить',
             showComments: 'показать комментарии',
-            hideComments: 'скрыть комментарии'
+            hideComments: 'скрыть комментарии',
+            username: 'Пользователь',
+            noComments: 'Нет комментариев',
+            user: 'имя',
+            comment: 'комментарий',
+            loading: 'Загрузка...'
         }
     }
 

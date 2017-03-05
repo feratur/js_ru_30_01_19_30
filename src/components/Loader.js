@@ -1,12 +1,17 @@
-import React, { PropTypes } from 'react'
+import React, { PropTypes, Component } from 'react'
 
-function Loader(props) {
-    return (
-        <h2>Loading...</h2>
-    )
-}
+class Loader extends Component {
+    static propTypes = {}
 
-Loader.propTypes = {
+    static contextTypes = {
+        locale: PropTypes.Object
+    }
+
+    render() {
+        return (
+            <h2>{this.context.locale.loading}</h2>
+        )
+    }
 }
 
 export default Loader
