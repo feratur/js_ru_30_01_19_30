@@ -13,6 +13,7 @@ class Root extends Component {
         lang: 'en'
     }
 
+    //вынеси словарь в отдельный файл
     locale = {
         en: {
             mainMenuTitle: 'Main menu',
